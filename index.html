@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Retail Sales KPI Dashboard</title>
+  <meta name="description" content="Interactive Business Intelligence dashboard for an Indian multi-region retail business (2023-2025): KPIs, trends, regions, categories, products, channels and auto-generated insights.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%227%22 fill=%22%233987e5%22/%3E%3Cpath d=%22M8 22V14M14 22V9M20 22V16M26 22V11%22 stroke=%22white%22 stroke-width=%223%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">BM</div>
+      <div>
+        <h1>Retail Sales KPI Dashboard</h1>
+        <p class="sub">BharatMart India &middot; multi-region retail &amp; e-commerce &middot; <span id="dataInfo">loading data&hellip;</span></p>
+      </div>
+    </div>
+    <div class="period" id="periodLabel"></div>
+  </header>
+
+  <section class="filters" aria-label="Global filters">
+    <label>Year
+      <select id="fYear">
+        <option value="all">All years</option>
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+        <option value="2025">2025</option>
+        <option value="custom" hidden>Custom range</option>
+      </select>
+    </label>
+    <label>From <input type="month" id="fFrom" min="2023-01" max="2025-12"></label>
+    <label>To <input type="month" id="fTo" min="2023-01" max="2025-12"></label>
+    <label>Region <select id="fRegion"></select></label>
+    <label>Category <select id="fCategory"></select></label>
+    <label>Segment <select id="fSegment"></select></label>
+    <label>Channel <select id="fChannel"></select></label>
+    <button id="btnReset" type="button">Reset</button>
+  </section>
+
+  <main>
+    <section class="kpis" id="kpis" aria-label="Key performance indicators"></section>
+
+    <section class="grid">
+      <article class="card span-8 fill">
+        <div class="card-head"><h2>Monthly revenue &amp; profit trend</h2><span class="hint">Dashed line = same months in previous period</span></div>
+        <div class="chart"><canvas id="cTrend"></canvas></div>
+      </article>
+      <article class="card span-4 insights">
+        <div class="card-head"><h2>Auto-generated insights</h2><span class="hint">Recomputed on every filter change</span></div>
+        <ul id="insights"></ul>
+      </article>
+
+      <article class="card span-4">
+        <div class="card-head"><h2>Revenue by region</h2><span class="hint">Click a bar to filter</span></div>
+        <div class="chart h-260"><canvas id="cRegion"></canvas></div>
+      </article>
+      <article class="card span-4">
+        <div class="card-head"><h2>Top 10 states by revenue</h2></div>
+        <div class="chart h-260"><canvas id="cState"></canvas></div>
+      </article>
+      <article class="card span-4">
+        <div class="card-head"><h2>Revenue by customer segment</h2><span class="hint">Click to filter</span></div>
+        <div class="chart h-260"><canvas id="cSegment"></canvas></div>
+      </article>
+
+      <article class="card span-8">
+        <div class="card-head"><h2>Category &amp; sub-category revenue</h2><span class="hint">Bar colour = category</span></div>
+        <div class="legend" id="catLegend"></div>
+        <div class="chart h-340"><canvas id="cSubcat"></canvas></div>
+      </article>
+      <article class="card span-4">
+        <div class="card-head"><h2>Revenue by sales channel</h2><span class="hint">Click to filter</span></div>
+        <div class="chart h-340"><canvas id="cChannel"></canvas></div>
+      </article>
+
+      <article class="card span-8">
+        <div class="card-head"><h2>Top 10 products</h2><span class="hint">Ranked by revenue</span></div>
+        <div class="table-wrap">
+          <table id="tProducts">
+            <thead><tr><th>#</th><th>Product</th><th>Category</th><th class="num">Units</th><th class="num">Revenue</th><th class="num">Profit</th><th class="num">Margin</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+      <article class="card span-4">
+        <div class="card-head"><h2>Payment mode mix</h2><span class="hint">Share of orders</span></div>
+        <div class="chart h-300"><canvas id="cPayment"></canvas></div>
+      </article>
+
+      <article class="card span-6">
+        <div class="card-head"><h2>Discount vs profit margin</h2><span class="hint">Dots = order lines (sample), line = average</span></div>
+        <div class="chart h-300"><canvas id="cScatter"></canvas></div>
+      </article>
+      <article class="card span-6">
+        <div class="card-head"><h2>Return rate by category</h2><span class="hint">% of order lines returned</span></div>
+        <div class="chart h-300"><canvas id="cReturns"></canvas></div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    Data: synthetic dataset generated by <code>data/generate_data.py</code> (seed 42) &middot; Built with HTML, CSS, JavaScript &amp; Chart.js 4.4.1 &middot; TY BTech BIA mini project
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="js/format.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
